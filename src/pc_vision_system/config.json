@@ -1,0 +1,35 @@
+
+{
+  "application": {
+    "name": "Gest-LED Controller",
+    "version": "1.0",
+    "debug_mode": false
+  },
+  "serial": {
+    "port": "auto",
+    "baud_rate": 115200,
+    "timeout": 2,
+    "retry_attempts": 3
+  },
+  "camera": {
+    "index": 0,
+    "width": 640,
+    "height": 480,
+    "fps": 30,
+    "flip_horizontal": true
+  },
+  "vision": {
+    "detection_confidence": 0.7,
+    "max_hands": 1,
+    "smoothing_frames": 3
+  },
+  "ui": {
+    "window_name": "Gest-LED Controller",
+    "font_scale": 1.0,
+    "colors": {
+      "text": [0, 255, 0],
+      "error": [0, 0, 255],
+      "background": [50, 50, 50]
+    }
+  }
+}
