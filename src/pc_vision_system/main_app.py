@@ -1,4 +1,4 @@
 from test_integration import run_vision_loop
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     run_vision_loop()

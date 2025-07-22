@@ -1,3 +1,20 @@
+import cv2
+import time
+import vision_module
+
+def run_vision_loop():
+    cap = cv2.VideoCapture(0)
+    detector = vision_module.initialize_detector()
+
+    p_time = 0  # previous time
+
+    while True:
+        success, frame = cap.read()
+        if not success:
+            print("Failed to grab frame.")
+            break
+        hands, img = vision_module.process_frame(frame, detector)
+        
         if hands:
             count = vision_module.count_fingers(hands[0])
             cv2.putText(img, f"Fingers: {count}", (10, 50),
