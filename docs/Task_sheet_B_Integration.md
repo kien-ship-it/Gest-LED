@@ -301,7 +301,7 @@ def test_vision_integration():
     print("Testing vision module integration...")
     app = GestLEDApp('config.json')
     app.initialize_camera()
-    
+    app.initialize_vision()
     # Capture and process one frame
     ret, frame = app.cap.read()
     assert ret == True
