@@ -148,17 +148,17 @@ class GestLEDApp:
         err_color = self.config['ui']['colors']['error']
 
         # Status bar
-        cv2.rectangle(frame, (0, h - 30), (w, h), (50, 50, 50), -1)
+        cv2.rectangle(frame, (0, h - 20), (w, h), (50, 50, 50), -1)
         cv2.putText(frame, f"Status: {status}", (10, h - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, ui_color, 1)
 
         # FPS counter
-        cv2.putText(frame, f"FPS: {fps:.1f}", (w - 100, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, ui_color, 2)
+        cv2.putText(frame, f"FPS: {fps:.1f}", (w - 110, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, ui_color, 2)
         
         # Finger count
         cv2.putText(frame, f"Fingers: {finger_count}", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, ui_color, 2)
 
         # Quit instructions
-        cv2.putText(frame, "Press 'q' to quit", (w - 150, h - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, ui_color, 1)
+        cv2.putText(frame, "Press 'q' to quit", (w - 160, h - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, ui_color, 1)
 
         if self.error_message:
             cv2.putText(frame, self.error_message, (10, h // 2), cv2.FONT_HERSHEY_SIMPLEX, 0.8, err_color, 2)
@@ -223,6 +223,12 @@ class GestLEDApp:
         if error_type == "fatal":
             self.running = False
 
+    #Change Here#
+    esp_port = comms_module.find_esp_port()
+    esp_object = comms_module.initialize_connection(esp_port)
+    #############
+
+
     def run(self):
         """Main application loop."""
         if not self.initialize_camera():
@@ -251,7 +257,7 @@ class GestLEDApp:
                 
                 # Only send data if the count has changed
                 if self.current_finger_count != last_sent_count:
-                    self.send_to_hardware(self.current_finger_count)
+                    comms_module.send_command(self.esp_object,self.current_finger_count)
                     last_sent_count = self.current_finger_count
 
                 # Update UI elements

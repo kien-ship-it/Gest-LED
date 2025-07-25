@@ -47,6 +47,16 @@ def initialize_connection(port, baud_rate=115200, timeout=2):
         ser.close()
     return None # fail
 
+def connect_to_esp(port=None, baud_rate=115200):
+    """
+    Tạo kết nối với ESP. Nếu không cung cấp port, tự động tìm.
+    """
+    if port is None:
+        port = find_esp_port()
+        if port == -1:
+            print("Không tìm thấy ESP.")
+            return None
+    return initialize_connection(port, baud_rate)
 
 def send_command(serial_conn, finger_count):
     """Sends a finger count command and waits for acknowledgment."""
@@ -75,4 +85,12 @@ def close_connection(serial_conn):
     """Close the serial connection if open."""
     if serial_conn and serial_conn.is_open:
         serial_conn.close()
+        
+        
+if __name__ == "__main__":
+    esp_port = find_esp_port()
+    esp_obj = initialize_connection(esp_port)
+    
+    send_command(esp_obj, 1)
+
 
