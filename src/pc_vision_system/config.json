@@ -16,7 +16,7 @@
     "width": 640,
     "height": 480,
     "fps": 30,
-    "flip_horizontal": true
+    "flip_horizontal": false
   },
   "vision": {
     "detection_confidence": 0.7,
